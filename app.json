@@ -15,16 +15,32 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.thmon.kali"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.thmon.kali"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "scheme": [
+      "kali",
+      "fb1699498310531975"
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "ccd5a57d-c8df-497e-a827-95ce61145ce8"
+      },
+      "google": {
+        "iosClientId": "666162941025-odke2dd4n6ap3cvs1rrbhq47i7mk9ug8.apps.googleusercontent.com",
+        "androidClientId": "666162941025-rc74h91e43882bcq8ubb891r0gb1uq3l.apps.googleusercontent.com",
+        "expoClientId": "666162941025-aavhmom7i6k5jp8ig143sumaaugi30ur.apps.googleusercontent.com"
+      }
     }
   }
 }
