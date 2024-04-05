@@ -10,7 +10,15 @@
       "image": "./assets/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
-    },
+    }, 
+    "plugins": [
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "Allow kali to use your location."
+        }
+      ]
+    ],
     "assetBundlePatterns": [
       "**/*"
     ],
@@ -37,9 +45,9 @@
         "projectId": "ccd5a57d-c8df-497e-a827-95ce61145ce8"
       },
       "google": {
-        "iosClientId": "666162941025-odke2dd4n6ap3cvs1rrbhq47i7mk9ug8.apps.googleusercontent.com",
-        "androidClientId": "666162941025-rc74h91e43882bcq8ubb891r0gb1uq3l.apps.googleusercontent.com",
-        "expoClientId": "666162941025-aavhmom7i6k5jp8ig143sumaaugi30ur.apps.googleusercontent.com"
+        "iosClientId": "666162941025-ebb4asdmd6d3urp497b322f0oi240l9h.apps.googleusercontent.com",
+        "androidClientId": "666162941025-p09ir48dgmj3p74cullcpfsppfsdoef6.apps.googleusercontent.com",
+        "expoClientId": "666162941025-tnuse0jsmjjpvtmuda4lbgjpul13ql7d.apps.googleusercontent.com"
       }
     }
   }

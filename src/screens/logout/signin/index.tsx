@@ -1,28 +1,33 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, ImageBackground, TextInput } from 'react-native';
-import { BottomSheet } from 'react-native-btr';
-import Card from '../../../components/card';
+import Card from '../../../design-system/molecules/card';
 import { inputStyle } from '../../../styles/global/form';
-import { title1, title2 } from '../../../styles/global/text';
-import CustomButton from '../../../components/buttons/customButton';
-import FacebookButton from '../../../components/buttons/facebookButton';
-import GoogleButton from '../../../components/buttons/googleButton';
+import { title2 } from '../../../styles/global/text';
+import CustomButton from '../../../design-system/atoms/buttons/customButton';
+import FacebookButton from '../../../design-system/atoms/buttons/facebookButton';
+import GoogleButton from '../../../design-system/atoms/buttons/googleButton';
 import { colors } from '../../../styles/global/globalStyles';
-import WhiteOpacity from '../../../components/opacity/white';
+import WhiteOpacity from '../../../design-system/atoms/opacity/white';
 import { signinUserEmail, signinUserGoogle, signinUserFacebook } from '../../../api/user';
-import { UserEmailSigninMinimumQuery, UserFacebookSignupMinimumQuery, UserGoogleSignupMinimumQuery } from '../../../types/user-types';
-import { useAppDispatch, useAppSelector } from '../../../lib/redux/hook';
+import { UserEmailSigninMinimumQuery } from '../../../types/user/user-email-types';
+import { UserFacebookSignupMinimumQuery } from '../../../types/user/user-facebook-types';
+import { UserGoogleSignupMinimumQuery } from '../../../types/user/user-google-types';
+import { useAppDispatch } from '../../../lib/redux/hook';
 import { loginUser } from '../../../lib/redux/user/userReducer';
 import { storeData } from '../../../lib/helpers/utils/asyncStorage';
 import { config } from '../../../../config';
 import * as WebBrowser from "expo-web-browser";
 import * as Google from "expo-auth-session/providers/google";
 import * as Facebook from "expo-auth-session/providers/facebook";
+import { connectGoogle } from '../../../services/google/signinGoogle';
+import { useAppSelector } from '../../../lib/redux/hook';
+
 
 WebBrowser.maybeCompleteAuthSession();
 
 export default function Signin() {
   const dispatch = useAppDispatch();
+  const lang = useAppSelector(state => state.user.lang);
 
     const [visible, setVisible] = useState(false);
     const [email, setEmail] = useState("");
@@ -32,12 +37,9 @@ export default function Signin() {
     const [userInfoGoogle, setUserInfoGoogle] = useState(null);
     const [user, setUser] = useState(null);
 
-    // GOOGLE
-    const [requestGoogle, responseGoogle, promptAsyncGoogle] = Google.useAuthRequest({
-      androidClientId: "666162941025-rc74h91e43882bcq8ubb891r0gb1uq3l.apps.googleusercontent.com",
-      iosClientId: "666162941025-odke2dd4n6ap3cvs1rrbhq47i7mk9ug8.apps.googleusercontent.com",
-      expoClientId: "666162941025-aavhmom7i6k5jp8ig143sumaaugi30ur.apps.googleusercontent.com"
-    });
+
+    const { requestGoogle, responseGoogle, promptAsyncGoogle } = connectGoogle(Google)
+
 
     useEffect(() => {
       if (responseGoogle?.type === "success") {
@@ -72,6 +74,7 @@ export default function Signin() {
           phone_uuid: "azerty",
           type: "particular",
           organisation_name: null,
+          lang: lang ?? 'fr'
         }
 
         signinUserGoogle(data)
@@ -136,7 +139,8 @@ export default function Signin() {
               last_coords: [0, 0],
               phone_uuid: "azerty",
               type: "particular",
-              organisation_name: null
+              organisation_name: null,
+              lang: lang ?? 'fr'
             }
 
             signinUserFacebook(data)
@@ -229,12 +233,16 @@ export default function Signin() {
                   }}
                   title="Connexion Facebook"
               />
+             
               <GoogleButton
                   onPress={()=>{
                     promptAsyncGoogle();
                   }}
                   title="Connexion Google"
               />
+
+
+
               <Card
                   visible={visible}
                   toggleBottomNavigationView={toggleBottomNavigationView}
@@ -268,7 +276,7 @@ export default function Signin() {
                       onPress={()=>{
                         validateForm()
                       }}
-                      title="Se connecter"
+                      title="Enregistrer"
                       buttonStyle='validation'
                     />
                     </View>

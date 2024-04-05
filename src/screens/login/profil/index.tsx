@@ -10,6 +10,7 @@ export default function Profil() {
 
   const dispatch = useAppDispatch();
   const user = useAppSelector(state => state.user);
+  console.log("User in pofil", user)
 
   return (
     <View style={styles.container}>

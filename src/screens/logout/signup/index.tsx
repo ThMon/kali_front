@@ -1,25 +1,25 @@
-import React, { useCallback, useMemo, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, Text, View, ImageBackground, TextInput, Dimensions } from 'react-native';
-import { BottomSheet } from 'react-native-btr';
-import Card from '../../../components/card';
+import Card from '../../../design-system/molecules/card';
 import { inputStyle } from '../../../styles/global/form';
-import { title1, title2 } from '../../../styles/global/text';
-import CustomButton from '../../../components/buttons/customButton';
-import FacebookButton from '../../../components/buttons/facebookButton';
-import GoogleButton from '../../../components/buttons/googleButton';
+import {  title2 } from '../../../styles/global/text';
+import CustomButton from '../../../design-system/atoms/buttons/customButton';
+import FacebookButton from '../../../design-system/atoms/buttons/facebookButton';
+import GoogleButton from '../../../design-system/atoms/buttons/googleButton';
 import { colors } from '../../../styles/global/globalStyles';
-import WhiteOpacity from '../../../components/opacity/white';
-import CustomSelect from '../../../components/selects/customSelect';
-import SelectDropdown from 'react-native-select-dropdown'
+import WhiteOpacity from '../../../design-system/atoms/opacity/white';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 const {width} = Dimensions.get('window');
 import { signupUser } from '../../../api/user';
-import { UserEmailSignupMinimumQuery } from '../../../types/user-types';
-import { useAppDispatch, useAppSelector } from '../../../lib/redux/hook';
-import { loginUser } from '../../../lib/redux/user/userReducer';
+import { UserEmailSignupMinimumQuery } from '../../../types/user/user-email-types';
+import { useAppDispatch } from '../../../lib/redux/hook';
+import Select from '../../../design-system/atoms/select';
+import { useAppSelector } from '../../../lib/redux/hook';
+
 
 export default function Signup() {
     const dispatch = useAppDispatch();
+    const lang = useAppSelector(state => state.user.lang);
 
     const [visible, setVisible] = useState(false);
     const [email, setEmail] = useState("");
@@ -46,7 +46,8 @@ export default function Signup() {
         last_coords: [0, 0],
         phone_uuid: "zefvb13",
         type,
-        organisation_name
+        organisation_name,
+        lang: lang ?? 'fr'
       }
 
       console.log(data)
@@ -118,7 +119,7 @@ export default function Signup() {
                       secureTextEntry={true}
                     />
 
-                    <SelectDropdown
+                    <Select
                       data={['Particulier', 'Organisation']}
                       defaultValue={"Particulier"}
                       onSelect={(selectedItem, index) => {
@@ -145,8 +146,7 @@ export default function Signup() {
                         return <FontAwesome name={isOpened ? 'chevron-up' : 'chevron-down'} color={'#444'} size={18} />;
                       }}
                       dropdownIconPosition={'right'}
-                      buttonStyle={styles.dropdown2BtnStyle}
-                      buttonTextStyle={styles.dropdown2BtnTxtStyle}
+                   
                     />
                     {type ==="organization" && <TextInput
                       style={inputStyle}

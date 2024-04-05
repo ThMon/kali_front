@@ -1,7 +1,7 @@
 import React, {ReactElement} from 'react'
 import { TouchableOpacity, Text, StyleSheet } from 'react-native';
-import { colors } from '../../styles/global/globalStyles';
-import { title2 } from '../../styles/global/text';
+import { colors } from '../../../styles/global/globalStyles';
+import { title2 } from '../../../styles/global/text';
 
 export default function CustomButton({
     onPress,

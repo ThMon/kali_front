@@ -1,8 +1,8 @@
 import React, {ReactElement} from 'react'
 import { TouchableOpacity, Text, StyleSheet, Image } from 'react-native';
-import { title2 } from '../../styles/global/text';
+import { title2 } from '../../../styles/global/text';
 
-export default function FacebookButton({
+export default function googleButton({
     onPress,
     title,
 }:{
@@ -16,8 +16,8 @@ export default function FacebookButton({
         style={{...styles.button}}
         onPress={onPress}
     >
-        <Image source={require('../../../assets/fb_logo.png')} style={styles.img}/>
-        <Text style={{...{color: "#3b5998", marginLeft: 10}, ...title2}}>
+        <Image source={require('../../../../assets/google_logo.png')} style={styles.img}/>
+        <Text style={{...{color: "black", marginLeft: 10}, ...title2}}>
             
             {title}
         </Text>
@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
       alignItems: "center",
       margin: 12,
       borderRadius: 12,
-      borderColor: "#3b5998",
+      borderColor: "black",
       borderWidth: 2,
       flexDirection: "row",
       backgroundColor: "white"
