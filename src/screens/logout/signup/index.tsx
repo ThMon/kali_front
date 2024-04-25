@@ -15,16 +15,21 @@ import { UserEmailSignupMinimumQuery } from '../../../types/user/user-email-type
 import { useAppDispatch } from '../../../lib/redux/hook';
 import Select from '../../../design-system/atoms/select';
 import { useAppSelector } from '../../../lib/redux/hook';
-
+import { useTranslate } from '../../../services/translate/useTranslate';
+import { changeLang } from '../../../lib/redux/user/userReducer';
+import Ionicons from '@expo/vector-icons/Ionicons';
+import TextField from '../../../design-system/atoms/textField';
+import { changeIsLoading } from '../../../lib/redux/load/loadReducer';
 
 export default function Signup() {
     const dispatch = useAppDispatch();
     const lang = useAppSelector(state => state.user.lang);
+    const translate = useTranslate()
 
     const [visible, setVisible] = useState(false);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [type, setType] = useState<"particular" | "organization">("particular");
+    const [profilType, setProfilType] = useState<"particular" | "organization">("particular");
     const [organizationName, setOrganizationName] = useState('');
     const [msg, setMsg] = useState<null | string>(null)
 
@@ -34,6 +39,7 @@ export default function Signup() {
     };
 
     const validateForm = ()=>{
+      dispatch(changeIsLoading(true))
       let organisation_name:string | null= null;
       if(organizationName !== "") {
         organisation_name = organizationName
@@ -44,8 +50,8 @@ export default function Signup() {
         password,
         connexion_type: "email",
         last_coords: [0, 0],
-        phone_uuid: "zefvb13",
-        type,
+        phone_uuid: "azerty",
+        profil_type: profilType,
         organisation_name,
         lang: lang ?? 'fr'
       }
@@ -61,6 +67,8 @@ export default function Signup() {
             setMsg('compte créé');
             setVisible(false);
           }
+          dispatch(changeIsLoading(false))
+
         })
     }
 
@@ -69,26 +77,54 @@ export default function Signup() {
         <ImageBackground source={require('../../../../assets/background.png')} resizeMode="cover" style={{...styles.container, ...styles.imageBackground}}>
           <WhiteOpacity>
             <>
-              <Text style={styles.mainTitle}>S'enregister à KALI</Text>
+              <Text style={styles.mainTitle}>{translate('signup_page.title')}</Text>
               {msg !== null && <Text>{msg}</Text>}
               <CustomButton
                   onPress={()=>{
                     toggleBottomNavigationView()
                   }}
-                  title="Enregistrement email"
+                  title={translate('signup_page.button_email_save')}
                   buttonStyle='validation'
               />
               <FacebookButton
                   onPress={()=>{
                     
                   }}
-                  title="Enregistrement Facebook"
+                  title={translate('signup_page.button_fb_save')}
               />
               <GoogleButton
                   onPress={()=>{
                     
                   }}
-                  title="Enregistrement Google"
+                  title={translate('signup_page.button_google_save')}
+              />
+               <Select
+                data={[translate('general.choice_lang'), translate('general.fr_lang'),translate('general.en_lang') ]}
+                defaultValue={translate('general.choice_lang')}
+                onSelect={(selectedItem, index) => {
+                  if(selectedItem === translate('general.fr_lang')) {
+                    dispatch(changeLang('fr'))
+                  }
+                  if(selectedItem === translate('general.en_lang')) {
+                    dispatch(changeLang('en'))
+                  }
+
+                 
+                }}
+                buttonTextAfterSelection={(selectedItem, index) => {
+                  // text represented after item is selected
+                  // if data array is an array of objects then return selectedItem.property to render after item is selected
+                  return selectedItem
+                }}
+                rowTextForSelection={(item, index) => {
+                  // text represented for each item in dropdown
+                  // if data array is an array of objects then return item.property to represent item in dropdown
+                  return item
+                }}
+                renderDropdownIcon={isOpened => {
+                  return <Ionicons name={isOpened ? 'chevron-up' : 'chevron-down'} color={'#444'} size={18} />;
+                }}
+                dropdownIconPosition={'right'}
               />
               <Card
                   visible={visible}
@@ -101,16 +137,14 @@ export default function Signup() {
                   <>
                     <Text style={title2}>S'enregistrer</Text>
                     <View>
-                    <TextInput
-                      style={inputStyle}
+                    <TextField
                       value={email}
                       onChangeText={(value)=>{
                         setEmail(value)
                       }}
                       placeholder="Email"
                     />
-                    <TextInput
-                      style={inputStyle}
+                    <TextField
                       value={password}
                       onChangeText={(value)=>{
                         setPassword(value)
@@ -125,11 +159,11 @@ export default function Signup() {
                       onSelect={(selectedItem, index) => {
 
                         if(selectedItem === 'Particulier') {
-                          setType('particular')
+                          setProfilType('particular')
                         }
 
                         if(selectedItem === 'Organisation') {
-                          setType('organization')
+                          setProfilType('organization')
                         }
                       }}
                       buttonTextAfterSelection={(selectedItem, index) => {
@@ -143,14 +177,14 @@ export default function Signup() {
                         return item
                       }}
                       renderDropdownIcon={isOpened => {
-                        return <FontAwesome name={isOpened ? 'chevron-up' : 'chevron-down'} color={'#444'} size={18} />;
+                        return <Ionicons name={isOpened ? 'chevron-up' : 'chevron-down'} color={'#444'} size={18} />;
                       }}
                       dropdownIconPosition={'right'}
                    
                     />
-                    {type ==="organization" && <TextInput
+                    {profilType ==="organization" && <TextInput
                       style={inputStyle}
-                      value={password}
+                      value={organizationName}
                       onChangeText={(value)=>{
                         setOrganizationName(value)
                       }}

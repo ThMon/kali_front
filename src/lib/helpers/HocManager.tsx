@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { StyleSheet, View } from 'react-native';
 import { config } from '../../../config';
 import LogoutRoutes from "../../navigation/logoutRoutes"
 import LoginRoutes from '../../navigation/loginRoutes';
@@ -11,10 +12,13 @@ import { userValidator } from './utils/userValidator';
 import FirstStepperContainer from '../../components/firstStepper';
 import { updateCoords } from '../../api/user';
 import { registerForPushNotificationsAsync } from './utils/notifications';
+import Loader from '../../design-system/molecules/loader';
+import { changeIsLoading } from '../redux/load/loadReducer';
 
 export default function HocManager() {
     const dispatch = useAppDispatch();
     const user = useAppSelector(state => state.user);
+    const isLoading = useAppSelector(state => state.load.isLoading);
     const [isComplete, setIsComplete] = useState(true);
 
 
@@ -28,9 +32,10 @@ export default function HocManager() {
     }, [user])
 
     const autoLogin = async ()=>{
+        dispatch(changeIsLoading(true))
         const token = await getStorageData(config.storageTokenKey)
        //console.log('TOKEN', token);
-
+       
         if(token !== null) {
             const responseCheckToken = await checkToken(token);
             //console.log("responseCheckToken", responseCheckToken);
@@ -53,8 +58,10 @@ export default function HocManager() {
                     const updateUuidRes = await updateUuid(uuid, responseCheckToken.content.user._id, token)   
                 }
             }
+            dispatch(changeIsLoading(false))
         } else {
             dispatch(logoutUser(null))
+            dispatch(changeIsLoading(false))
         }
     }
 
@@ -62,14 +69,24 @@ export default function HocManager() {
         autoLogin()
     }, [])
 
-    
-
 
     return (
-        <>
+        <View style={styles.container}>
+            
             {user.isLogged ?  
                 isComplete ? <LoginRoutes/> : <FirstStepperContainer/>
             : <LogoutRoutes/>}
-        </>
+
+            {isLoading && <Loader />}
+        </View>
     )
 }
+
+
+const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: '#fff'
+    },
+  });
+  

@@ -1,4 +1,9 @@
 export const fr = {
+    general: {
+        choice_lang: 'Choisir votre langue',
+        fr_lang: 'Français',
+        en_lang: 'Anglais'
+    },
     first_stepper: {
         welcome: "On apprend à se connaître ?",
         user_step: {
@@ -23,5 +28,17 @@ export const fr = {
     home_page: {
         title: "Bonjour <%name> !",
         description: "Bienvenu sur Kali"
+    },
+    login_page: {
+        title: "Se connecter à Kali",
+        button_email_connexion: 'Connexion Email',
+        button_fb_connexion: 'Connexion Facebook',
+        button_google_connexion: 'Connexion Google',
+    },
+    signup_page: {
+        title: "S'enregistrer sur Kali",
+        button_email_save: 'Enregistrement Email',
+        button_fb_save: 'Enregistrement Facebook',
+        button_google_save: 'Enregistrement Google',
     }
 }

@@ -15,12 +15,12 @@ export interface UserQuery {
   connexion_type: "email" | "google" | "facebook";
   last_coords: number[];
   phone_uuid: string;
-  type: "particular" | "organization";
+  profil_type: "particular" | "organization";
   organisation_name?: string | null;
   picture: string | null;
   role: "user" | "admin";
   lang: "fr" | "en";
-  tags: string[] | null
+  tags: string[] | null;
 }
 
 export interface UserDtoQuery {
@@ -37,12 +37,12 @@ export interface UserDtoQuery {
   connexion_type: "email" | "google" | "facebook";
   last_coords: number[];
   phone_uuid: string;
-  type: "particular" | "organization";
+  profil_type: "particular" | "organization";
   organisation_name?: string | null;
   picture?: string | null;
   role: "user" | "admin";
-  lang: "fr" | "en"
-  tags?: string[] | null
+  lang: "fr" | "en";
+  tags?: string[] | null;
 }
 
 export interface UserProfilQuery {
@@ -55,10 +55,10 @@ export interface UserProfilQuery {
   city?: string | null;
   gender?: "male" | "female" | null;
   birthdate?: Date | null;
-  type: "particular" | "organization";
+  profil_type: "particular" | "organization";
   organisation_name?: string | null;
   picture?: string | null;
-  lang?: "fr" | "en"
+  lang?: "fr" | "en";
 }
 
 export interface UserUpdateProfilQuery {
@@ -70,8 +70,8 @@ export interface UserUpdateProfilQuery {
   city?: string | null;
   gender?: "male" | "female" | null;
   birthdate?: Date | null;
-  type?: "particular" | "organization";
+  profil_type?: "particular" | "organization";
   organisation_name?: string | null;
   picture?: string | null;
-  lang?: "fr" | "en"
+  lang?: "fr" | "en";
 }

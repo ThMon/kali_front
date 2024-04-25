@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View, ImageBackground, TextInput } from 'react-native';
+import React, { ReactElement, useEffect, useState } from 'react';
+import { StyleSheet, Text, View, ImageBackground } from 'react-native';
 import Card from '../../../design-system/molecules/card';
-import { inputStyle } from '../../../styles/global/form';
 import { title2 } from '../../../styles/global/text';
 import CustomButton from '../../../design-system/atoms/buttons/customButton';
 import FacebookButton from '../../../design-system/atoms/buttons/facebookButton';
@@ -12,7 +11,7 @@ import { signinUserEmail, signinUserGoogle, signinUserFacebook } from '../../../
 import { UserEmailSigninMinimumQuery } from '../../../types/user/user-email-types';
 import { UserFacebookSignupMinimumQuery } from '../../../types/user/user-facebook-types';
 import { UserGoogleSignupMinimumQuery } from '../../../types/user/user-google-types';
-import { useAppDispatch } from '../../../lib/redux/hook';
+import { useAppDispatch, useAppSelector } from '../../../lib/redux/hook';
 import { loginUser } from '../../../lib/redux/user/userReducer';
 import { storeData } from '../../../lib/helpers/utils/asyncStorage';
 import { config } from '../../../../config';
@@ -20,14 +19,20 @@ import * as WebBrowser from "expo-web-browser";
 import * as Google from "expo-auth-session/providers/google";
 import * as Facebook from "expo-auth-session/providers/facebook";
 import { connectGoogle } from '../../../services/google/signinGoogle';
-import { useAppSelector } from '../../../lib/redux/hook';
+import { useTranslate } from '../../../services/translate/useTranslate';
+import Select from '../../../design-system/atoms/select';
+import { changeLang } from '../../../lib/redux/user/userReducer';
+import Ionicons from '@expo/vector-icons/Ionicons';
+import TextField from '../../../design-system/atoms/textField';
+import { changeIsLoading } from '../../../lib/redux/load/loadReducer';
 
 
 WebBrowser.maybeCompleteAuthSession();
 
-export default function Signin() {
+export default function Signin():ReactElement {
   const dispatch = useAppDispatch();
   const lang = useAppSelector(state => state.user.lang);
+  const translate = useTranslate();
 
     const [visible, setVisible] = useState(false);
     const [email, setEmail] = useState("");
@@ -36,7 +41,6 @@ export default function Signin() {
     const [tokenGoogle, setTokenGoogle] = useState("");
     const [userInfoGoogle, setUserInfoGoogle] = useState(null);
     const [user, setUser] = useState(null);
-
 
     const { requestGoogle, responseGoogle, promptAsyncGoogle } = connectGoogle(Google)
 
@@ -185,7 +189,7 @@ export default function Signin() {
 
 
     const validateForm = ()=>{
- 
+      dispatch(changeIsLoading(true))
       const data: UserEmailSigninMinimumQuery = {
         email,
         password,
@@ -210,6 +214,7 @@ export default function Signin() {
             }
             
           }
+          dispatch(changeIsLoading(false))
         })
     }
 
@@ -219,26 +224,54 @@ export default function Signin() {
         <ImageBackground source={require('../../../../assets/background.png')} resizeMode="cover" style={{...styles.container, ...styles.imageBackground}}>
           <WhiteOpacity>
             <>
-              <Text style={styles.mainTitle}>Se connecter à KALI</Text>
+              <Text style={styles.mainTitle}>{translate('login_page.title')}</Text>
               <CustomButton
                   onPress={()=>{
                     toggleBottomNavigationView()
                   }}
-                  title="Connexion email"
+                  title={translate('login_page.button_email_connexion')}
                   buttonStyle='validation'
               />
               <FacebookButton
                   onPress={()=>{
                     handlePressAsync()
                   }}
-                  title="Connexion Facebook"
+                  title={translate('login_page.button_fb_connexion')}
               />
              
               <GoogleButton
                   onPress={()=>{
                     promptAsyncGoogle();
                   }}
-                  title="Connexion Google"
+                  title={translate('login_page.button_google_connexion')}
+              />
+              <Select
+                data={[translate('general.choice_lang'), translate('general.fr_lang'),translate('general.en_lang') ]}
+                defaultValue={translate('general.choice_lang')}
+                onSelect={(selectedItem, index) => {
+                  if(selectedItem === translate('general.fr_lang')) {
+                    dispatch(changeLang('fr'))
+                  }
+                  if(selectedItem === translate('general.en_lang')) {
+                    dispatch(changeLang('en'))
+                  }
+
+                 
+                }}
+                buttonTextAfterSelection={(selectedItem, index) => {
+                  // text represented after item is selected
+                  // if data array is an array of objects then return selectedItem.property to render after item is selected
+                  return selectedItem
+                }}
+                rowTextForSelection={(item, index) => {
+                  // text represented for each item in dropdown
+                  // if data array is an array of objects then return item.property to represent item in dropdown
+                  return item
+                }}
+                renderDropdownIcon={isOpened => {
+                  return <Ionicons name={isOpened ? 'chevron-up' : 'chevron-down'} color={'#444'} size={18} />;
+                }}
+                dropdownIconPosition={'right'}
               />
 
 
@@ -255,16 +288,14 @@ export default function Signin() {
                     <Text style={title2}>Se connecter</Text>
                     {msg !== null && <Text>{msg}</Text>}
                     <View>
-                    <TextInput
-                      style={inputStyle}
+                    <TextField
                       value={email}
                       onChangeText={(value)=>{
                         setEmail(value)
                       }}
                       placeholder="Email"
                     />
-                    <TextInput
-                      style={inputStyle}
+                    <TextField
                       value={password}
                       onChangeText={(value)=>{
                         setPassword(value)

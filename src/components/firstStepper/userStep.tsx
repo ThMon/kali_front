@@ -1,14 +1,13 @@
-import React, { ReactElement } from 'react'
-import { StyleSheet, Text, View, TextInput, ScrollView } from 'react-native';
+import React from 'react'
+import { StyleSheet, View, TextInput, ScrollView } from 'react-native';
 import { inputStyle } from '../../styles/global/form';
-import { title1, title2 } from '../../styles/global/text';
 import { useTranslate } from '../../services/translate/useTranslate';
 import { Dimensions } from 'react-native';
 import Select from '../../design-system/atoms/select';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import DateTimePicker from '@react-native-community/datetimepicker';
 import MaskInput , { Masks }from 'react-native-mask-input';
-
+import TextField from '../../design-system/atoms/textField';
+import Ionicons from '@expo/vector-icons/Ionicons';
 
 const screenWidth = Dimensions.get('window').width;
 
@@ -33,48 +32,42 @@ export default function UserStep({
   return (
     <View style={styles.container}>
         <ScrollView style={styles.scrollview} contentContainerStyle={{flexGrow: 1, justifyContent: 'center'}}>
-            <TextInput
-                style={inputStyle}
+            <TextField
                 placeholder={translate("first_stepper.user_step.your_firstname")}
                 value={user.firstName}
                 onChangeText={(text)=>{
                     onChangeUserStateKey('firstName', text)
                 }}
             />
-            <TextInput
-                style={inputStyle}
+            <TextField
                 placeholder={translate("first_stepper.user_step.your_lastname")}
                 value={user.lastName}
                 onChangeText={(text)=>{
                     onChangeUserStateKey('lastName', text)
                 }}
             />
-            <TextInput
-                style={inputStyle}
+            <TextField
                 placeholder={translate("first_stepper.user_step.your_phone")}
                 value={user.phone}
                 onChangeText={(text)=>{
                     onChangeUserStateKey('phone', text)
                 }}
             />
-            <TextInput
-                style={inputStyle}
+            <TextField
                 placeholder={translate("first_stepper.user_step.your_address")}
                 value={user.address}
                 onChangeText={(text)=>{
                     onChangeUserStateKey('address', text)
                 }}
             />
-            <TextInput
-                style={inputStyle}
+            <TextField
                 placeholder={translate("first_stepper.user_step.your_zip")}
                 value={user.zip}
                 onChangeText={(text)=>{
                     onChangeUserStateKey('zip', text)
                 }}
             />
-            <TextInput
-                style={inputStyle}
+            <TextField
                 placeholder={translate("first_stepper.user_step.your_city")}
                 value={user.city}
                 onChangeText={(text)=>{
@@ -119,14 +112,11 @@ export default function UserStep({
                 return item
                 }}
                 renderDropdownIcon={isOpened => {
-                return <FontAwesome name={isOpened ? 'chevron-up' : 'chevron-down'} color={'#444'} size={18} />;
+                return <Ionicons name={isOpened ? 'chevron-up' : 'chevron-down'} color={'#444'} size={18} />;
                 }}
                 dropdownIconPosition={'right'}
             
             />
-
-            
-           
             <MaskInput
                 placeholder="dd/mm/yyyy"
                 mask={Masks.DATE_DDMMYYYY}
@@ -136,7 +126,6 @@ export default function UserStep({
                 value={user.birthDate}
                 style={inputStyle}
             />
-            
         </ScrollView>
     </View>
   )

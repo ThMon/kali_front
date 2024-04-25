@@ -1,10 +1,10 @@
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import { Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Home from '../screens/login/home';
 import Profil from '../screens/login/profil';
 import { colors } from '../styles/global/globalStyles';
+import Ionicons from '@expo/vector-icons/Ionicons';
+
 
 const Tab = createBottomTabNavigator();
 
@@ -33,13 +33,14 @@ export default function LoginRoutes() {
 
             if (route.name === 'Home') {
               iconName = focused
-                ? 'ios-home'
-                : 'ios-home-outline';
+                ? 'home'
+                : 'home-outline';
             } else if (route.name === 'Profil') {
-              iconName = focused ? 'ios-person' : 'ios-person-outline';
+              iconName = focused ? 'person' : 'person-outline';
             }
 
             // You can return any component that you like here!
+            //@ts-ignores
             return <Ionicons name={iconName} size={size} color={color} />;
           },
           tabBarActiveTintColor: colors.main,

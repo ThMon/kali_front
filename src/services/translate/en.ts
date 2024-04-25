@@ -1,4 +1,9 @@
 export const en = {
+    general: {
+        choice_lang: 'Choose your language',
+        fr_lang: 'French',
+        en_lang: 'English'
+    },
     first_stepper: {
         welcome: "We learn to know each other ?",
         user_step: {
@@ -23,5 +28,17 @@ export const en = {
     home_page: {
         title: "Hello <%name> !",
         description: "Welcome to Kali"
+    },
+    login_page: {
+        title: "Signin to Kali",
+        button_email_connexion: 'Email login',
+        button_fb_connexion: 'Facebook login',
+        button_google_connexion: 'Google login',
+    },
+    signup_page: {
+        title: "Signup to Kali",
+        button_email_save: 'Email signup',
+        button_fb_save: 'Facebook signup',
+        button_google_save: 'Google signup',
     }
 }

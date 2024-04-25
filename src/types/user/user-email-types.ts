@@ -4,9 +4,9 @@ export interface UserEmailSignupMinimumQuery {
   connexion_type: "email" | "facebook" | "google";
   last_coords: number[];
   phone_uuid: string;
-  type: "particular" | "organization";
+  profil_type: "particular" | "organization";
   organisation_name: string | null;
-  lang: "fr" | "en"
+  lang: "fr" | "en";
 }
 
 export interface UserEmailSigninMinimumQuery {

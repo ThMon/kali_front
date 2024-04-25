@@ -110,12 +110,15 @@ export const updateUuid = (data: {uuid: string}, id: string, token: string): Pro
 export const modifyProfil = (data: UserUpdateProfilQuery, id: string, token: string): Promise<ResponseRequest> => {
     const configs: any = {
         headers: {
-            authorization: token
+            authorization: token,
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
         }
     }
 
     return axios.put(config.api_url+'/user/modifyProfil/'+id, data, configs)
         .then((response)=>{
+            console.log("response data", response.data.content)
             return response.data;
         })
         .catch((err)=>{
