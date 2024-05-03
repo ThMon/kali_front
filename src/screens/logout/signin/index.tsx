@@ -76,7 +76,7 @@ export default function Signin():ReactElement {
           connexion_type: 'google',
           last_coords: [0, 0],
           phone_uuid: "azerty",
-          type: "particular",
+          profil_type: "particular",
           organisation_name: null,
           lang: lang ?? 'fr'
         }
@@ -142,7 +142,7 @@ export default function Signin():ReactElement {
               connexion_type: 'facebook',
               last_coords: [0, 0],
               phone_uuid: "azerty",
-              type: "particular",
+              profil_type: "particular",
               organisation_name: null,
               lang: lang ?? 'fr'
             }
