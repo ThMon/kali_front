@@ -1,0 +1,100 @@
+export const tagCreator = [
+  {
+    step: 1,
+    question: "tagStepper.question1",
+    type: "multiple",
+    answers: [
+      { name: "tagStepper.answer1.a", keys: ["movie"] },
+      { name: "tagStepper.answer1.b", keys: ["sport"] },
+      { name: "tagStepper.answer1.c", keys: ["painting"] },
+      { name: "tagStepper.answer1.d", keys: ["art"] },
+      //{ name: "tagStepper.answer1.e", keys: ["painting"] },
+      { name: "tagStepper.answer1.f", keys: ["cooking"] },
+      { name: "tagStepper.answer1.g", keys: ["meditation"] },
+      // { name: "tagStepper.answer1.h", keys:[ "politique"] },
+      { name: "tagStepper.answer1.i", keys: ["travel"] },
+      { name: "tagStepper.answer1.j", keys: ["business"] },
+    ],
+  },
+  {
+    step: 2,
+    question: "tagStepper.question2",
+    type: "multiple",
+    answers: [
+      //{ name: "tagStepper.answer2.a", keys: ["going_out"] },
+      //{ name: "tagStepper.answer2.b", keys: ["cinema"] },
+      { name: "tagStepper.answer2.c", keys: ["restaurant"] },
+      { name: "tagStepper.answer2.d", keys: ["running"] },
+      { name: "tagStepper.answer2.e", keys: ["sport"] },
+      //{ name: "tagStepper.answer2.f", keys: ["tv" ]},
+      //{ name: "tagStepper.answer2.g", keys: ["video_game" ]},
+      //{ name: "tagStepper.answer2.h", keys: ["politique"] },
+      { name: "tagStepper.answer2.i", keys: ["travel"] },
+      //{ name: "tagStepper.answer2.j", keys: ["drinks" ]},
+    ],
+  },
+  {
+    step: 3,
+    question: "tagStepper.question3",
+    type: "multiple",
+    answers: [
+      // { name: "tagStepper.answer3.a", keys: ["meeting", "single"] },
+      { name: "tagStepper.answer3.b", keys: ["discover", "friends"] },
+      { name: "tagStepper.answer3.c", keys: ["friends"] },
+      //{ name: "tagStepper.answer3.d", keys:["eating_and_drinking" ]},
+      { name: "tagStepper.answer3.e", keys: ["learn"] },
+      { name: "tagStepper.answer3.f", keys: ["sport"] },
+      //{ name: "tagStepper.answer3.g", keys: ["meeting", "new_people"] },
+      { name: "tagStepper.answer3.h", keys: ["discover"] },
+    ],
+  },
+  {
+    step: 4,
+    question: "tagStepper.question4",
+    type: "multiple",
+    answers: [
+      { name: "tagStepper.answer4.a", keys: ["chill", "netflix_and_chill"] },
+      { name: "tagStepper.answer4.b", keys: ["new_things", "discover"] },
+      // { name: "tagStepper.answer3.c", keys: ["pool_and_friends"] },
+      //{ name: "tagStepper.answer3.d", keys: ["bungy", "jumping"] },
+      // { name: "tagStepper.answer3.e", keys: ["netflix_and_chill"] },
+      {
+        name: "tagStepper.answer3.f",
+        keys: ["sport", "football" /* "drinks"*/],
+      },
+      {
+        name: "tagStepper.answer3.g",
+        keys: ["friends", "girls_night" /*"brunch"*/],
+      },
+    ],
+  },
+  {
+    step: 5,
+    question: "tagStepper.question4",
+    type: "multiple",
+    answers: [
+      { name: "tagStepper.answer4.a", keys: ["chill", "netflix_and_chill"] },
+      { name: "tagStepper.answer4.b", keys: ["new_things", "discover"] },
+      // { name: "tagStepper.answer3.c", keys: ["pool_and_friends"] },
+      //{ name: "tagStepper.answer3.d", keys: ["bungy", "jumping"] },
+      // { name: "tagStepper.answer3.e", keys: ["netflix_and_chill"] },
+      {
+        name: "tagStepper.answer3.f",
+        keys: ["sport", "football" /* "drinks"*/],
+      },
+      {
+        name: "tagStepper.answer3.g",
+        keys: ["friends", "girls_night" /*"brunch"*/],
+      },
+    ],
+  },
+];
+
+// brunch,bungy jumping,football games,netflix and chill,new things,pool and friends
+
+// b: "Faire chaque jour quelque chose de nouveau - Never stop",
+// c: "un weekend entre potes à boire des coups dans une maison avec piscine",
+// d: " un saut à l'élastique depuis un pont dans le gard",
+// e: "netflix/thé bien chaud sous le plaid",
+// f: "un match de foot au stade et des pintes derrière",
+// g: "un brunch entre filles le samedi midi",

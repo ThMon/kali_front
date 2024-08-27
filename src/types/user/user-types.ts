@@ -1,5 +1,3 @@
-import { Types } from "mongoose";
-
 export interface UserQuery {
   _id: string;
   firstname: string | null;
@@ -21,6 +19,7 @@ export interface UserQuery {
   role: "user" | "admin";
   lang: "fr" | "en";
   tags: string[] | null;
+  step: number;
 }
 
 export interface UserDtoQuery {
@@ -46,7 +45,7 @@ export interface UserDtoQuery {
 }
 
 export interface UserProfilQuery {
-  _id?: Types.ObjectId;
+  _id?: string;
   firstname?: string | null;
   lastname?: string | null;
   phone?: string | null;
